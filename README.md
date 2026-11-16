@@ -1,39 +1,46 @@
-# CS453 - Individual AI Project
+# CS453 - Individual AI Project: Campus Delivery Agent
 
-Choose ONE: Campus Delivery Agent, After-Hours Cleaning Robot, or Library Retrieval Agent. Work independently for two weeks using Colab and your own private GitHub repository. Several students may choose the same story.
+**Name:** Mohamed Muftah Abu jazia
+**Student ID:** 09231170
+**GitHub username:** <YOUR_GITHUB_USERNAME>
+**Project choice:** Campus Delivery Agent
 
-[Create your private project copy](https://github.com/AliElzaileek/cs453-ai-project-starter/generate)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/<YOUR_GITHUB_USERNAME>/<YOUR_REPO_NAME>/blob/main/project.ipynb)
 
-## Start here
+> Replace the placeholders above with your real username, repository name and branch (main or master).
+> This repository is private; the professor (`AliElzaileek`) was invited as a collaborator.
 
-1. On the professor's starter repository select **Use this template > Create a new repository**; choose **Private** and name your copy `cs453-ai-project`. Do not fork the public starter or submit a branch to it.
-2. Invite the professor using GitHub username `AliElzaileek`. Work can begin while the invitation is pending.
-3. Read [the student guide](docs/student-guide.pdf) and [GitHub + Colab instructions](docs/github-colab-guide.md). Their manual repository/upload setup is an alternative; with this template, project.ipynb is already included.
-4. Open [project.ipynb](project.ipynb) in Colab through authorized GitHub access, or download it and upload to Colab. Enter your own ID as text, preserving leading zeros, and choose your project.
-5. Complete your README using [the student README template](docs/STUDENT_README_TEMPLATE.md); update its Colab link to your own account/repo.
+## Assigned variant
+- Student ID sum of character codes mod 4: **v = 3**
+- Closed road: **E-G**
+- Start: **S**, target building: **D**
 
-## Required work
+## Files
+- `project.ipynb`: the full workbook (Tasks 1, 2, 4, 5, 6, 10, 11)
+- `README.md`: this file
+- `docs/`, `references/`: supplied course material (unchanged)
 
-- Task 1: PEAS and environment.
-- Task 2: representation.
-- Task 4: legal simulator and service action.
-- Task 5: BFS (uninformed), explanation and assigned mission output.
-- Task 6: A* (informed), supplied heuristic explanation and assigned mission output.
-- Tasks 10-11: sources/help disclosure and submission checklist.
+## Dependencies and how to run
+Python 3 standard library only (`copy`, `collections`, `heapq`, `itertools`). No GPU, paid API or extra files.
+1. Open `project.ipynb` in Google Colab (badge above, or File > Open notebook > GitHub).
+2. Runtime > Restart session and run all.
+3. Check the printed variant and the BFS / A* mission outputs.
 
-Original task numbers are retained. Tasks 3, 7, 8 and 9 are removed. No Day 7 checkpoint, standalone ten-case test table, results section or limitations essay is required. Code must still run correctly.
+## Progress
+- Task 1: PEAS and environment classification
+- Task 2: state = (location, delivered), legal actions, transitions, goal, costs
+- Task 4: simulator (legal moves, delivery only at the target, clear errors for illegal actions)
+- Task 5: BFS with FIFO queue, repeated-state tracking, route reconstruction
+- Task 6: A* with priority queue, g+h, best-cost tracking, goal test on removal
 
-Week 1: model, simulator and BFS. Week 2: A*, explanation, README and clean execution. No physical robot, website, paid API or GPU is needed.
+## Algorithm summary
+- **BFS** (uninformed): expands level by level, so with unit-cost roads the first route found has the fewest moves. Result: S -> A -> D (2 moves).
+- **A*** (informed): orders by f = g + h using the supplied heuristic table for target D. h is admissible because it holds distances of the original graph and removing a road cannot shorten any distance. Result: S -> A -> D (2 moves), expanding fewer nodes than BFS.
+- After each route the simulator executes the moves and the delivery, ending in state `("D", True)`.
 
-## Study references
+## Sources
+- Supplied CS453 two-week workbook (graph, variant helper, heuristic table) and the course graph-search / informed-search STUDENT notebooks.
+- Russell & Norvig, *Artificial Intelligence: A Modern Approach* (BFS, A*).
 
-- [Graph search STUDENT notebook](references/graph-search.ipynb)
-- [Informed search STUDENT notebook](references/informed-search.ipynb)
-
-These are supplied course study material. Cite adaptations and explain your own work. Do not copy classmates' code or outputs; disclose permitted AI assistance and your verification.
-
-## Save and submit
-
-Explicitly save progress from Colab to **your own private repository**, not to this public starter. Drive autosave does not update GitHub. Use the download/upload fallback if integration fails.
-
-Reopen the committed notebook in a fresh Colab session and verify it runs. Submit your **repository URL and final commit URL** in the Google Classroom assignment, then select **Turn in**. The due date/time is announced there; invite GitHub username `AliElzaileek`. This repository does not issue extra deadlines or marks. The full course project continues after the professor returns.
+## AI assistance disclosure
+Tool: Claude (Anthropic). Help: task explanation and a draft of the code and explanations. Verification: ran in a fresh Colab session, checked the variant and results by hand, tested illegal actions and edge cases
